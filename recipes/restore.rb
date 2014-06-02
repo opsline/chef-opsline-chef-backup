@@ -2,7 +2,7 @@
 # Cookbook Name:: opsline-chef-backup
 # Recipe:: restore
 #
-# Copyright 2014, YOUR_COMPANY_NAME
+# Copyright 2014, Opsline,LLC
 #
 # All rights reserved - Do Not Redistribute
 #
