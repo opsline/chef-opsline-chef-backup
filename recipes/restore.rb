@@ -12,16 +12,10 @@ cookbook_file "#{node['chef-backup']['restore_script_dir']}/chef-restore.rb" do
   mode "0700"
 end
 
-file node['chef-backup']['restore_log_file'] do
-  owner "root"
-  group "root"
-  mode "0755"
-  action :create
-end
-
 cron "run_chef_restore" do
-  hour  node['chef-backup']['restore_cron']['hour']
-  minute  node['chef-backup']['restore_cron']['minute']
+  hour node['chef-backup']['restore_cron']['hour']
+  minute node['chef-backup']['restore_cron']['minute']
   weekday node['chef-backup']['restore_cron']['weekday']
-  command "#{node['chef-backup']['restore_script_dir']}/chef-restore.rb -f #{node['chef-backup']['restore_file']} -l #{node['chef-backup']['restore_log_file']}"
+  command "#{node['chef-backup']['restore_script_dir']}/chef-restore.rb -f #{node['chef-backup']['backup_dir']}/#{node['chef-backup']['restore_file']} -l #{node['chef-backup']['log_dir']}/restore.log"
+  user node['chef-backup']['backup_user']
 end
