@@ -14,11 +14,35 @@ package 'ruby'
 chef_gem 'knife-backup'
 
 # create backup user
-user node['chef-backup']['backup_user']
+user node['chef-backup']['backup_user'] do
+  supports :manage_home => true
+  home "/home/#{node['chef-backup']['backup_user']}"
+  action :create
+end
 
-# create knife config
+# create .chef dir in backup user's home for knife.rb config file
+directory "/home/#{node['chef-backup']['backup_user']}/.chef" do
+  owner node['chef-backup']['backup_user']
+  group node['chef-backup']['backup_user']
+  mode 00755
+  action :create
+end
 
-# create knife cert from databag
+# create knife.rb from template
+template "/home/#{node['chef-backup']['backup_user']}/.chef/knife.rb" do
+  source "knife.erb"
+  owner node['chef-backup']['backup_user']
+  group node['chef-backup']['backup_user']
+  mode "0755"
+end
+
+# create client pem from databag
+file "/home/#{node['chef-backup']['backup_user']}/.chef/#{node['chef-backup']['knife']['client_name']}.pem" do
+  content data_bag_item('knife_cert', 'client')['cert']
+  owner node['chef-backup']['backup_user']
+  group node['chef-backup']['backup_user']
+  mode "0755"
+end
 
 # create dir where backup and restore scripts will append logs
 directory node['chef-backup']['log_dir'] do

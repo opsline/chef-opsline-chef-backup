@@ -9,6 +9,8 @@
 
 cookbook_file "#{node['chef-backup']['backup_script_dir']}/chef-backup.rb" do
   source "chef-backup.rb"
+  owner node['chef-backup']['backup_user']
+  group node['chef-backup']['backup_user']
   mode "0700"
 end
 
