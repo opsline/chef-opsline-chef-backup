@@ -7,9 +7,6 @@
 # All rights reserved - Do Not Redistribute
 #
 
-# ensure ruby is installed
-package 'ruby'
-
 # install knife-backup plugin
 chef_gem 'knife-backup'
 

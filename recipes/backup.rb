@@ -19,6 +19,6 @@ cron "run_chef_backup" do
   hour node['chef-backup']['backup_cron']['hour']
   minute node['chef-backup']['backup_cron']['minute']
   weekday node['chef-backup']['backup_cron']['weekday']
-  command "#{node['chef-backup']['backup_script_dir']}/chef-backup.rb -d #{node['chef-backup']['backup_dir']} -l #{node['chef-backup']['log_dir']}/backup.log"
+  command "/opt/chef/embedded/bin/ruby #{node['chef-backup']['backup_script_dir']}/chef-backup.rb -d #{node['chef-backup']['backup_dir']} -l #{node['chef-backup']['log_dir']}/backup.log"
   user node['chef-backup']['backup_user']
 end
