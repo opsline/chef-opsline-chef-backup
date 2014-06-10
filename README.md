@@ -10,13 +10,12 @@ Requirements
 
 Usage
 -----
-Include `opsline-chef-backup::default` and `opsline-chef-backup::backup` or `opsline-chef-backup::restore` in your node's `run_list`:
+Include `opsline-chef-backup::backup` or `opsline-chef-backup::restore` in your node's `run_list`:
 
 ```json
 {
   "name":"my_node",
   "run_list": [
-    "recipe[opsline-chef-backup]",
     "recipe[opsline-chef-backup::backup]"
     
   ]
