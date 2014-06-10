@@ -7,6 +7,8 @@
 # All rights reserved - Do Not Redistribute
 #
 
+include_recipe 'backup::default'
+
 cookbook_file "#{node['chef-backup']['restore_script_dir']}/chef-restore.rb" do
   source "chef-restore.rb"
   owner node['chef-backup']['backup_user']
