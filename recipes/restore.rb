@@ -7,7 +7,7 @@
 # All rights reserved - Do Not Redistribute
 #
 
-include_recipe 'backup::default'
+include_recipe 'opsline-chef-backup::default'
 
 cookbook_file "#{node['chef-backup']['restore_script_dir']}/chef-restore.rb" do
   source "chef-restore.rb"
