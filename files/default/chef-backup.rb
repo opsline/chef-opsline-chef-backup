@@ -65,6 +65,9 @@ unless $?.to_i == 0
   exit
 end
 
+delete_link_status = `rm -f #{backup_dir}/#{file_name}.latest.tar.gz`
+link_status = `ln -s #{backup_dir}/#{file_name}.#{ts}.tar.gz #{backup_dir}/#{file_name}.latest.tar.gz`
+
 # remove the backup dir after compressing
 log.info 'removing the backup dir...'
 rm_status = `rm -rf #{backup_dir}/#{file_name}`

@@ -15,7 +15,7 @@ default['chef-backup']['backup_cron']['weekday'] = '*'
 
 # restore recipe
 default['chef-backup']['restore_script_dir'] = '/usr/local/bin'
-default['chef-backup']['restore_file'] = 'chef.backup.tar.gz' # expected in node['chef-backup']['backup_dir']
+default['chef-backup']['restore_file'] = 'chef.backup.latest.tar.gz' # expected in node['chef-backup']['backup_dir']
 default['chef-backup']['restore_cron']['hour'] = '1'
 default['chef-backup']['restore_cron']['minute'] = '0'
 default['chef-backup']['restore_cron']['weekday'] = '*'

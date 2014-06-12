@@ -1,13 +1,10 @@
-opsline-chef-backup CHANGELOG
-=============================
+# CHANGELOG for opsline-chef-backup
 
 This file is used to list changes made in each version of the opsline-chef-backup cookbook.
 
-0.1.0
------
-- [your_name] - Initial release of opsline-chef-backup
+## 0.1.0
+* Initial release of opsline-chef-backup
 
-- - -
-Check the [Markdown Syntax Guide](http://daringfireball.net/projects/markdown/syntax) for help with Markdown.
-
-The [Github Flavored Markdown page](http://github.github.com/github-flavored-markdown/) describes the differences between markdown on github and standard markdown.
+## 0.2.0
+* Using timestamp instead of date in backup file names
+* Creating link to latest backup file
