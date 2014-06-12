@@ -48,7 +48,7 @@ log = Logger.new(log_file)
 # extract the archive
 log.info 'extracting the backup archive...'
 tar_status = `tar -xzf #{backup_file} -C #{File.dirname(backup_file)}`
-if $?.to_i != 0
+unless $?.to_i == 0
   log.error "Failed to extract the backup file. \n Error: #{tar_status}"
   exit
 end
@@ -67,7 +67,7 @@ IO.popen "knife backup restore -D #{backup_dir}", "r+" do |io|
   end
 end
 
-if $?.to_i != 0
+unless $?.to_i == 0
   log.error "restore failed on 'knife backup restore'!!!"
   exit
 end

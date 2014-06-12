@@ -50,17 +50,17 @@ file_name = 'chef.backup'
 log.info 'running knife backup export...'
 backup_status = `knife backup export -D #{backup_dir}/#{file_name}`
 
-if $?.to_i != 0
+unless $?.to_i == 0
   log.error "Failed to run knife backup command. \n Error: #{backup_status}"
   exit
 end
 
 # tar the backup
 log.info 'compressing the backup...'
-today = Date.today().strftime('%Y%m%d')
-tar_status = `tar -czf #{backup_dir}/#{file_name}.#{today}.tar.gz -C #{backup_dir} #{file_name}`
+ts = Time.now.to_i
+tar_status = `tar -czf #{backup_dir}/#{file_name}.#{ts}.tar.gz -C #{backup_dir} #{file_name}`
 
-if $?.to_i != 0
+unless $?.to_i == 0
   log.error "Failed to tar the backup file. \n Error: #{tar_status}"
   exit
 end
@@ -69,7 +69,7 @@ end
 log.info 'removing the backup dir...'
 rm_status = `rm -rf #{backup_dir}/#{file_name}`
 
-if $?.to_i != 0
+unless $?.to_i == 0
   log.error "Failed to remove backup dir after compressing \n Error: #{rm_status}"
   exit
 end
