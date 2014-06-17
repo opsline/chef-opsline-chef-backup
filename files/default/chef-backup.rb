@@ -48,33 +48,28 @@ file_name = 'chef.backup'
 
 # run knife backup
 log.info 'running knife backup export...'
-backup_status = `knife backup export -D #{backup_dir}/#{file_name}`
+status = `knife backup export -D #{backup_dir}/#{file_name}`
 
 unless $?.to_i == 0
-  log.error "Failed to run knife backup command. \n Error: #{backup_status}"
+  log.error "Failed to run knife backup command. \n Error: #{status}"
   exit
 end
 
 # tar the backup
 log.info 'compressing the backup...'
 ts = Time.now.to_i
-tar_status = `tar -czf #{backup_dir}/#{file_name}.#{ts}.tar.gz -C #{backup_dir} #{file_name}`
+status = `tar -czf #{backup_dir}/#{file_name}.#{ts}.tar.gz -C #{backup_dir} #{file_name}`
 
 unless $?.to_i == 0
-  log.error "Failed to tar the backup file. \n Error: #{tar_status}"
+  log.error "Failed to tar the backup file. \n Error: #{status}"
   exit
 end
 
-delete_link_status = `rm -f #{backup_dir}/#{file_name}.latest.tar.gz`
-link_status = `ln -s #{backup_dir}/#{file_name}.#{ts}.tar.gz #{backup_dir}/#{file_name}.latest.tar.gz`
+`rm -f #{backup_dir}/#{file_name}.latest.tar.gz`
+`ln -s #{backup_dir}/#{file_name}.#{ts}.tar.gz #{backup_dir}/#{file_name}.latest.tar.gz`
 
 # remove the backup dir after compressing
 log.info 'removing the backup dir...'
-rm_status = `rm -rf #{backup_dir}/#{file_name}`
-
-unless $?.to_i == 0
-  log.error "Failed to remove backup dir after compressing \n Error: #{rm_status}"
-  exit
-end
+`rm -rf #{backup_dir}/#{file_name}`
 
 log.info "chef backup completeled successfully"

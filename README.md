@@ -17,7 +17,6 @@ Include `opsline-chef-backup::backup` or `opsline-chef-backup::restore` in your 
   "name":"my_node",
   "run_list": [
     "recipe[opsline-chef-backup::backup]"
-    
   ]
 }
 ```

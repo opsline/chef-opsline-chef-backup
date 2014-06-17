@@ -8,3 +8,7 @@ This file is used to list changes made in each version of the opsline-chef-backu
 ## 0.2.0
 * Using timestamp instead of date in backup file names
 * Creating link to latest backup file
+
+## 0.3.0
+* correcting file permissions
+* restore script removes extracted backup after restore

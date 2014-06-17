@@ -47,9 +47,9 @@ log = Logger.new(log_file)
 
 # extract the archive
 log.info 'extracting the backup archive...'
-tar_status = `tar -xzf #{backup_file} -C #{File.dirname(backup_file)}`
+status = `tar -xzf #{backup_file} -C #{File.dirname(backup_file)}`
 unless $?.to_i == 0
-  log.error "Failed to extract the backup file. \n Error: #{tar_status}"
+  log.error "Failed to extract the backup file. \n Error: #{status}"
   exit
 end
 
@@ -69,7 +69,12 @@ end
 
 unless $?.to_i == 0
   log.error "restore failed on 'knife backup restore'!!!"
+  `rm -rf #{backup_dir}`
   exit
 end
+
+# remove the backup dir after restore
+log.info 'removing the backup dir...'
+`rm -rf #{backup_dir}`
 
 log.info 'chef backup restored successfully'

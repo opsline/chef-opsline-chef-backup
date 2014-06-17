@@ -21,7 +21,7 @@ end
 directory "/home/#{node['chef-backup']['backup_user']}/.chef" do
   owner node['chef-backup']['backup_user']
   group node['chef-backup']['backup_user']
-  mode 00755
+  mode 0750
   action :create
 end
 
@@ -30,7 +30,7 @@ template "/home/#{node['chef-backup']['backup_user']}/.chef/knife.rb" do
   source "knife.erb"
   owner node['chef-backup']['backup_user']
   group node['chef-backup']['backup_user']
-  mode "0755"
+  mode 0640
 end
 
 # create client pem from databag
@@ -38,14 +38,14 @@ file "/home/#{node['chef-backup']['backup_user']}/.chef/#{node['chef-backup']['k
   content data_bag_item('knife_cert', 'client')['cert']
   owner node['chef-backup']['backup_user']
   group node['chef-backup']['backup_user']
-  mode "0755"
+  mode 0600
 end
 
 # create dir where backup and restore scripts will append logs
 directory node['chef-backup']['log_dir'] do
   owner node['chef-backup']['backup_user']
   group node['chef-backup']['backup_user']
-  mode 00755
+  mode 0755
   action :create
 end
 
@@ -53,6 +53,6 @@ end
 directory node['chef-backup']['backup_dir'] do
   owner node['chef-backup']['backup_user']
   group node['chef-backup']['backup_user']
-  mode 00755
+  mode 0755
   action :create
 end
