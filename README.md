@@ -29,10 +29,10 @@ Include `opsline-chef-backup::backup` or `opsline-chef-backup::restore` in your 
 Note: `opsline-chef-backup::default` recipe is automatically included in both backup and restore recipes therefore you do not need to include it in your run list.
 
 ### Data bag items
-Backup client's private key (pem file) must be provided in data bag called "knife_cert" and item "client" as follows:
+Chef backup client's private key (pem file) must be provided in a data bag called "chef-backup" and item "backup_client" as follows:
 ```json
 {
-  "id": "client",
+  "id": "backup_client",
   "cert": "..."
 }
 ```
