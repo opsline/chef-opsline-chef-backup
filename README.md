@@ -4,7 +4,9 @@ This cookbook has been created to perform routine and automated backups/restores
 
 The `opsline-chef-backup::backup` will configure cron to execute chef-backup.rb according to the attribute settings (daily at midnight by default) to perform a backup and create a timestamp-versioned tar.gz in `node['chef-backup']['backup_dir']`
 
-The `opsline-chef-backup::restore` will configure cron to execute chef-restore.rb according to the attribute settings (daily at 1AM by default), and take a tar.gz specified in `node['chef-backup']['restore_file']` to perform a restore on the server. 
+The `opsline-chef-backup::restore` will configure cron to execute chef-restore.rb according to the attribute settings (daily at 1AM by default), and take a tar.gz specified in `node['chef-backup']['restore_file']` to perform a restore on the server.
+
+
 Note: A method of transfering files between two chef servers has not been implemented. If backup is performed on one server, you would need to implement a method to transfer the backup archive to the second host (scp etc), which will perform the restore.
 
 Requirements
