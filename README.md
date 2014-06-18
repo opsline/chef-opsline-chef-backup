@@ -28,6 +28,9 @@ Include `opsline-chef-backup::backup` or `opsline-chef-backup::restore` in your 
 
 Note: `opsline-chef-backup::default` recipe is automatically included in both backup and restore recipes therefore you do not need to include it in your run list.
 
+### Attributes
+See `attributes/default.rb` for configuration options including backup directory, system user that will be created and under which cron will be configure to run etc.
+
 ### Data bag items
 Chef backup client's private key (pem file) must be provided in a data bag called "chef-backup" and item "backup_client" as follows:
 ```json
