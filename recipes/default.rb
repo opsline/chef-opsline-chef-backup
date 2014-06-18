@@ -35,7 +35,7 @@ end
 
 # create client pem from databag
 file "/home/#{node['chef-backup']['backup_user']}/.chef/#{node['chef-backup']['knife']['client_name']}.pem" do
-  content data_bag_item('knife_cert', 'client')['cert']
+  content data_bag_item('chef-backup', 'backup_client')['cert']
   owner node['chef-backup']['backup_user']
   group node['chef-backup']['backup_user']
   mode 0600
