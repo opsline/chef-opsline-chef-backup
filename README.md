@@ -38,9 +38,10 @@ Chef backup client's private key (pem file) must be provided in a data bag calle
 ```json
 {
   "id": "backup_client",
-  "cert": "..."
+  "cert": "private_key"
 }
 ```
+The `private_key` should have the new lines converted to `\n` so as to create a single long string. On linux you can use this command to create such string from the pem file `tr "\n" "#" < pk_in.pem | sed 's/#/\\n/g' > pk_out.pem`
 
 License and Authors
 -------------------
