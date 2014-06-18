@@ -4,6 +4,7 @@ driver:
 
 provisioner:
   name: chef_solo
+  data_bags_path: ../../data_bags
 
 platforms:
   - name: ubuntu-12.04
@@ -13,4 +14,9 @@ suites:
   - name: default
     run_list:
       - recipe[opsline-chef-backup::default]
-    attributes:
+  - name: backup
+    run_list:
+      - recipe[opsline-chef-backup::backup]
+  - name: restore
+    run_list:
+      - recipe[opsline-chef-backup::restore]
