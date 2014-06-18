@@ -1,7 +1,7 @@
 require 'serverspec'
 
-# include Serverspec::Helper::Exec
-# include Serverspec::Helper::DetectOS
+ include Serverspec::Helper::Exec
+ include Serverspec::Helper::DetectOS
 
 RSpec.configure do |c|
   c.before :all do
@@ -9,14 +9,10 @@ RSpec.configure do |c|
   end
 end
 
-describe "Git Daemon" do
+describe file('/usr/local/bin/chef-backup.rb') do
+  it { should be_file }
+end
 
-  it "is listening on port 9418" do
-    expect(port(9418)).to be_listening
-  end
-
-  it "has a running service of git-daemon" do
-    expect(service("git-daemon")).to be_running
-  end
-
+describe cron do
+  it { should have_entry('/opt/chef/embedded/bin/ruby /usr/local/bin/chef-backup.rb').with_user('chef-backup')  }
 end
