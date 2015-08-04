@@ -3,6 +3,7 @@
 ## 0.4.0
 * customizing with more attributes
 * using encrypted data bag
+* removing old backup files after 14 days
 
 ## 0.3.0
 * correcting file permissions

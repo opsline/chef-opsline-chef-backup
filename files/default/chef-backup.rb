@@ -72,4 +72,8 @@ end
 log.info 'removing the backup dir...'
 `rm -rf #{backup_dir}/#{file_name}`
 
+# remove old backups
+log.info 'removing old backups...'
+`/usr/bin/find #{backup_dir} -type f -mtime +14 -delete`
+
 log.info "chef backup completeled successfully"
