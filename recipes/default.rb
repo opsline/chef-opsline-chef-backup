@@ -26,6 +26,7 @@ chef_gem 'knife-backup'
 user node['chef-backup']['backup_user'] do
   supports :manage_home => true
   home "/home/#{node['chef-backup']['backup_user']}"
+  shell '/bin/bash'
   action :create
 end
 
@@ -46,8 +47,9 @@ template "/home/#{node['chef-backup']['backup_user']}/.chef/knife.rb" do
 end
 
 # create client pem from databag
+backup_client_dbi = Chef::EncryptedDataBagItem.load(node['chef-backup']['knife']['data_bag_name'], node['chef-backup']['knife']['client_name'])
 file "/home/#{node['chef-backup']['backup_user']}/.chef/#{node['chef-backup']['knife']['client_name']}.pem" do
-  content data_bag_item('chef-backup', 'backup_client')['cert']
+  content backup_client_dbi['cert']
   owner node['chef-backup']['backup_user']
   group node['chef-backup']['backup_user']
   mode 0600

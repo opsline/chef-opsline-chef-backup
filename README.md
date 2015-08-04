@@ -13,6 +13,9 @@ Requirements
 ------------
 - Cron jobs use chef's embedded ruby, expected in /opt/chef/embedded/bin
 - Create a chef client for backup/restore purposes (with admin privileges)
+```bash
+knife user create --admin chef-backup --password 'chef-backup'
+```
 - Create a databag called 'chef-backup' with item 'backup_client' containing the backup client cert (see below)
 
 Usage

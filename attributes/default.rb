@@ -6,6 +6,7 @@ default['chef-backup']['backup_user'] = 'chef-backup'
 # knife.rb config
 default['chef-backup']['knife']['client_name'] = 'chef-backup'
 default['chef-backup']['knife']['chef_server_url'] = 'https://localhost'
+default['chef-backup']['knife']['data_bag_name'] = 'chef-users'
 
 # backup recipe
 default['chef-backup']['backup_script_dir'] = '/usr/local/bin'

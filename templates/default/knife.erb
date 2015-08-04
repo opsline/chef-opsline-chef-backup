@@ -1,8 +1,9 @@
 current_dir = File.dirname(__FILE__)
-log_level                :info
-log_location             STDOUT
-node_name                "<%= node['chef-backup']['knife']['client_name'] %>"
-client_key               "#{current_dir}/<%= node['chef-backup']['knife']['client_name'] %>.pem"
-chef_server_url          "<%= node['chef-backup']['knife']['chef_server_url'] %>"
-cache_type               'BasicFile'
-cache_options( :path => "#{ENV['HOME']}/.chef/checksums" )
+log_level       :info
+log_location    STDOUT
+node_name       "<%= node['chef-backup']['knife']['client_name'] %>"
+client_key      "#{current_dir}/<%= node['chef-backup']['knife']['client_name'] %>.pem"
+chef_server_url "<%= node['chef-backup']['knife']['chef_server_url'] %>"
+cache_type      'BasicFile'
+verify_api_cert false
+ssl_verify_mode :verify_none
