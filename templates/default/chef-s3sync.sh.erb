@@ -2,7 +2,7 @@
 
 cd <%= node['chef-backup']['backup_dir'] %>
 
-aws s3 sync \
+/usr/local/bin/aws s3 sync \
   --region <%= node.ec2.placement_availability_zone.chop() %> \
   <%= node['chef-backup']['backup_dir'] %>/ \
   s3://<%= node['chef-backup']['s3sync']['bucket'] %>/<%= node['chef-backup']['s3sync']['directory'] %>/ \
