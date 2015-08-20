@@ -70,3 +70,13 @@ directory node['chef-backup']['backup_dir'] do
   mode 0755
   action :create
 end
+
+# logrotate
+logrotate_app 'chef-backup' do
+  cookbook 'logrotate'
+  path "#{node['chef-backup']['log_dir']}/*.log"
+  options ['copytruncate', 'missingok', 'compress', 'notifempty', 'delaycompress']
+  frequency 'daily'
+  rotate 14
+  enable :create
+end

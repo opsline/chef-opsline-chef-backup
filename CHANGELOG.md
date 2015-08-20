@@ -1,5 +1,9 @@
 # CHANGELOG for opsline-chef-backup
 
+## 0.5.0
+* adding `s3sync` recipe
+* adding log rotation
+
 ## 0.4.0
 * customizing with more attributes
 * using encrypted data bag
