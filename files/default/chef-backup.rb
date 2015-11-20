@@ -76,4 +76,4 @@ log.info 'removing the backup dir...'
 log.info 'removing old backups...'
 `/usr/bin/find #{backup_dir} -type f -mtime +14 -delete`
 
-log.info "chef backup completeled successfully"
+log.info "chef backup completed successfully"
