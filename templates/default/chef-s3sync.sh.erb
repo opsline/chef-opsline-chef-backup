@@ -6,7 +6,6 @@ cd <%= node['chef-backup']['backup_dir'] %>
   --region <%= node.ec2.placement_availability_zone.chop() %> \
   <%= node['chef-backup']['backup_dir'] %>/ \
   s3://<%= node['chef-backup']['s3sync']['bucket'] %>/<%= node['chef-backup']['s3sync']['directory'] %>/ \
-  --delete \
   --exclude '*' \
   --exclude 'chef.backup.latest.tar.gz' \
   --include 'chef.backup.*.tar.gz'
