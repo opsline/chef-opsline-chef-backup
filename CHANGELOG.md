@@ -1,5 +1,8 @@
 # CHANGELOG for opsline-chef-backup
 
+## 0.5.1
+* removing --delete option from s3 sync script
+
 ## 0.5.0
 * adding `s3sync` recipe
 * adding log rotation
