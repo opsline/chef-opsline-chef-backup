@@ -1,10 +1,10 @@
 #
 # Cookbook Name:: opsline-chef-backup
-# Recipe:: backup
+# Recipe:: chef_server_ctl_backup
 #
-# Author:: Roshan Singh
+# Author:: Scott Morris
 #
-# Copyright 2014, OpsLine, LLC.
+# Copyright 2017, OpsLine, LLC.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -20,19 +20,20 @@
 #
 
 include_recipe 'opsline-chef-backup::default'
-include_recipe 'opsline-chef-backup::knife_config'
 
-cookbook_file "#{node['chef-backup']['backup_script_dir']}/chef-backup.rb" do
-  source "chef-backup.rb"
-  owner node['chef-backup']['backup_user']
-  group node['chef-backup']['backup_user']
-  mode 0750
+SCRIPT_NAME='chef-server-ctl-backup'
+
+template "#{node['chef-backup']['backup_script_dir']}/#{SCRIPT_NAME}.sh" do
+  source "#{SCRIPT_NAME}.sh.erb"
+  owner 'root'
+  group 'root'
+  mode 0754
 end
 
-cron "run_chef_backup" do
+cron "#{SCRIPT_NAME}_cron" do
   hour node['chef-backup']['backup_cron']['hour']
   minute node['chef-backup']['backup_cron']['minute']
   weekday node['chef-backup']['backup_cron']['weekday']
-  command "/opt/chef/embedded/bin/ruby #{node['chef-backup']['backup_script_dir']}/chef-backup.rb -d #{node['chef-backup']['backup_dir']} -l #{node['chef-backup']['log_dir']}/backup.log"
-  user node['chef-backup']['backup_user']
+  command "#{node['chef-backup']['backup_script_dir']}/#{SCRIPT_NAME}.sh >> #{node['chef-backup']['log_dir']}/#{SCRIPT_NAME}.log 2>&1"
+  user 'root'
 end

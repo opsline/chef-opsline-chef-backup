@@ -20,6 +20,7 @@
 #
 
 include_recipe 'opsline-chef-backup::default'
+include_recipe 'opsline-chef-backup::knife_config'
 
 cookbook_file "#{node['chef-backup']['restore_script_dir']}/chef-restore.rb" do
   source "chef-restore.rb"

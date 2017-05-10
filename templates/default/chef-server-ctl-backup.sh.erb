@@ -1,0 +1,33 @@
+#!/bin/bash
+
+set -eu
+
+BACKUP_OUTPUT_DIR="/var/opt/chef-backup"
+
+if ! which chef-server-ctl; then
+  echo "chef-server-ctl not found; exiting..."
+  exit 2
+else
+  "backing up Chef Server with chef-server-ctrl..."
+  time chef-server-ctrl backup --yes 2>&1
+  cd $BACKUP_OUTPUT_DIR
+  backup_file=$( ls -1t chef-backup-*.tgz 2>/dev/null | head -1 )
+  if [ "$backup_file" == "" ]; then
+    echo "missing output backup file from chef-server-ctl backup!"
+    exit 3
+  else
+    echo "backup successful"
+  fi
+  <% if node['chef-backup']['backup_dir'] %>
+  echo "moving $backup_file to <%= node['chef-backup']['backup_dir'] %>/"
+  mkdir -p <%= node['chef-backup']['backup_dir'] %>
+  mv ${BACKUP_OUTPUT_DIR}/${backup_file} <%= node['chef-backup']['backup_dir'] %>/
+  cd <%= node['chef-backup']['backup_dir'] %>
+  rm -f <%= node['chef-backup']['restore_file'] %>
+  ln -s $backup_file <%= node['chef-backup']['restore_file'] %>
+  echo 'removing old backups...'
+  find <%= node['chef-backup']['backup_dir'] %> -type f -mtime +14 -delete
+  <% end %>
+  echo "removing old backups from $BACKUP_OUTPUT_DIR..."
+  find $BACKUP_OUTPUT_DIR -type f -mtime +14 -delete
+fi
